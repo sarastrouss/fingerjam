@@ -53,7 +53,7 @@ public class twisterPlay : MonoBehaviour {
 			Debug.Log ("Got it");
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, 100)) {
+			if (Physics.Raycast(ray, out hit)) {
 				RotateLeft();
 			}
 		}
@@ -62,7 +62,11 @@ public class twisterPlay : MonoBehaviour {
 	
 	void RotateLeft () {
 		spinner.Rotate (Vector3.forward * -80);
+
 	}
+
+
+ 
 	
 
 	void playClip() {
