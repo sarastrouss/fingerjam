@@ -22,6 +22,8 @@ public class spin : MonoBehaviour {
 		} else {
 			spinning = false;
 		}
+
+
 	}
 
 	void OnMouseDown() {

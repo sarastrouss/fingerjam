@@ -9,9 +9,11 @@ public class twisterPlay : MonoBehaviour {
 	public Transform spinnerDig;
 	public Transform spinner;
 	public GameObject sound;
+	Quaternion rotation;
 
 	// Use this for initialization
 	void Start () {
+		rotation = spinner.rotation;
 		// Adding values to alph
 		alph.Add("A");
 		alph.Add("B");
@@ -46,10 +48,20 @@ public class twisterPlay : MonoBehaviour {
 		digits.Add ("Ring finger");
 		digits.Add ("Thumb");
 	}
-	
+	float angle;
 	// Update is called once per frame
 	void Update () {
-
+//		if (spinner.rotation != rotation) {
+//			//angle = Quaternion.Angle(spinner.rotation, rotation);
+//			Debug.Log (rotation);
+//		}
+		Debug.Log (spinner.eulerAngles.x);
+		// detecting things
+		if (spinner.rotation.eulerAngles.y< 0 && spinner.rotation.eulerAngles.y < 72) {
+			Debug.Log ("middle finger");
+		} else if (spinner.rotation.eulerAngles.y > 72) {
+			Debug.Log ("not it");
+		}
 	}
 	
 
