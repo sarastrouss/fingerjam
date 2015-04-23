@@ -61,8 +61,7 @@ public class twisterPlay : MonoBehaviour {
 
 	
 	void RotateLeft () {
-		var lSpeed = 100.0f; // Set this to a value you like
-		spinner.rotation = Quaternion.Lerp ( spinner.rotation, Quaternion.Euler(0,0,-72),Time.deltaTime*lSpeed);
+		spinner.Rotate (Vector3.forward * -80);
 	}
 	
 
