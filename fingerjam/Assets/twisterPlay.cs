@@ -7,6 +7,7 @@ public class twisterPlay : MonoBehaviour {
 	List<string> digits = new List<string> ();
 	public Transform spinnerAlph;
 	public Transform spinnerDig;
+	public Transform spinner;
 	public GameObject sound;
 
 	// Use this for initialization
@@ -48,8 +49,22 @@ public class twisterPlay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKeyDown (KeyCode.Mouse0)) {
+			Debug.Log ("Got it");
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit, 100)) {
+				RotateLeft();
+			}
+		}
 	}
+
+	
+	void RotateLeft () {
+		var lSpeed = 100.0f; // Set this to a value you like
+		spinner.rotation = Quaternion.Lerp ( spinner.rotation, Quaternion.Euler(0,0,-72),Time.deltaTime*lSpeed);
+	}
+	
 
 	void playClip() {
 		// play particular audio clip
