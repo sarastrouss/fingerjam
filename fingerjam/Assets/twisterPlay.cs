@@ -49,24 +49,8 @@ public class twisterPlay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown (KeyCode.Mouse0)) {
-			Debug.Log ("Got it");
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit)) {
-				RotateLeft();
-			}
-		}
-	}
-
-	
-	void RotateLeft () {
-		spinner.Rotate (Vector3.forward * -80);
 
 	}
-
-
- 
 	
 
 	void playClip() {

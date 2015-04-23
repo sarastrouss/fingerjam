@@ -4,22 +4,31 @@ using System.Collections;
 public class spin : MonoBehaviour {
 
 	bool spinning;
+	public Transform spinner;
 	float spinDuration;
 	float spinLength;
 	float spinDecrement;
 
 	// Use this for initialization
 	void Start () {
-		spinning = true;
-		spinDecrement = Random.Range (8, 15);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (spinning && spinDecrement > 0) {
-			transform.Rotate (Vector3.forward * -(spinDecrement));
+			spinner.Rotate (Vector3.forward * -(spinDecrement));
 			spinDecrement -= .05f;
+		} else {
+			spinning = false;
 		}
-	
+	}
+
+	void OnMouseDown() {
+		if (!spinning) {
+			spinning = true;
+			spinDecrement = Random.Range (8, 15);
+		}
+
 	}
 }
