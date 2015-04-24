@@ -1,10 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/getAngles.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/spin.cs">
     <Files>
-      <File FileName="Assets/twisterPlay.cs" Line="58" Column="3" />
-      <File FileName="Assets/spin.cs" Line="26" Column="3" />
-      <File FileName="Assets/getAngles.cs" Line="14" Column="44" />
+      <File FileName="Assets/twisterPlay.cs" Line="72" Column="1" />
+      <File FileName="Assets/spin.cs" Line="37" Column="1" />
+      <File FileName="../../elefun/elefun-game/Assets/dragObject.cs" Line="25" Column="4" />
+      <File FileName="Assets/toGame.cs" Line="16" Column="22" />
+      <File FileName="Assets/toInstructions.cs" Line="16" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

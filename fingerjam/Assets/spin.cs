@@ -3,29 +3,44 @@ using System.Collections;
 
 public class spin : MonoBehaviour {
 
-	bool spinning;
-	public Transform spinner;
-	public Transform alphaSpinner;
+	bool spinning, spun;
+	public Transform FingerSpinner;
+	public Transform LetterSpinner;
 	float spinDuration;
 	float spinLength;
-	float spinDecrement;
+	float spinDecrementFinger, spinDecrementLetter;
 	enum Fingers {Middle, Ring, Pinky, Thumb, Index};
+	public GameObject otherPlayerButton;
 
 	// Use this for initialization
 	void Start () {
+		spinning = false;
+		spun = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (spinning && spinDecrement > 0) {
-			spinner.Rotate (Vector3.forward * -(spinDecrement));
-			spinDecrement -= .05f;
-		} else {
+		if (spinning && (spinDecrementFinger > 0 || spinDecrementLetter > 0)) {
+			if (spinDecrementFinger > 0) {
+				FingerSpinner.Rotate (Vector3.forward * -(spinDecrementFinger));
+				spinDecrementFinger -= .05f;
+			}
+			if (spinDecrementLetter > 0) {				
+				LetterSpinner.Rotate (Vector3.forward * -(spinDecrementLetter));
+				spinDecrementLetter -= .05f;
+			}
+		} else if (!spun) {
 			spinning = false;
+		} else {		
 			// detecting things
-			int finger = getFingerSpin(spinner.rotation.eulerAngles.z); 
+			int finger = getFingerSpin(FingerSpinner.rotation.eulerAngles.z); 
 			//Debug.Log(finger);
-			char alpha = getLetterSpin(360-alphaSpinner.rotation.eulerAngles.z);
+			char alpha = getLetterSpin(360-LetterSpinner.rotation.eulerAngles.z);
+
+			this.gameObject.active = false;
+			otherPlayerButton.active = true;
+			spun = false;
+
 		}
 	}
 
@@ -61,7 +76,10 @@ public class spin : MonoBehaviour {
 	void OnMouseDown() {
 		if (!spinning) {
 			spinning = true;
-			spinDecrement = Random.Range (8, 15);
+			spun = true;
+			spinDecrementFinger = Random.Range (8, 15);
+			spinDecrementLetter = Random.Range (8, 15);
+
 		}
 
 	}
