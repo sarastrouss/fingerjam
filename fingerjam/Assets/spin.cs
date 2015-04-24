@@ -3,7 +3,7 @@ using System.Collections;
 
 public class spin : MonoBehaviour {
 
-	bool spinning, spun;
+	bool spinning, spun, countdown;
 	public Transform FingerSpinner;
 	public Transform LetterSpinner;
 	float spinDuration;
@@ -12,11 +12,15 @@ public class spin : MonoBehaviour {
 	enum Fingers {Middle, Ring, Pinky, Thumb, Index};
 	public GameObject otherPlayerButton;
 	public player player;
+	public UnityEngine.UI.Text timer;
+	public int timeLeft;
 
 	// Use this for initialization
 	void Start () {
 		spinning = false;
 		spun = false;
+		timeLeft = 5;
+		countdown = true;
 	}
 	
 	// Update is called once per frame
@@ -49,10 +53,10 @@ public class spin : MonoBehaviour {
 			} else {
 				player.index = alpha;
 			}
-
-			this.gameObject.SetActive(false);
-			otherPlayerButton.SetActive(true);
-			spun = false;
+			if (timeLeft > 0 && countdown) {
+				countdown = false;
+				StartCoroutine(showTimer(1));
+			}
 
 		}
 	}
@@ -96,4 +100,19 @@ public class spin : MonoBehaviour {
 		}
 
 	}
+
+	IEnumerator showTimer(float time) {
+		timer.text = ":0" + timeLeft;
+		yield return new WaitForSeconds (time);
+		timeLeft--;
+		countdown = true;
+		if (timeLeft == 0) {
+			this.gameObject.SetActive (false);
+			otherPlayerButton.SetActive (true);
+			timer.text = "";
+			spun = false;
+			timeLeft = 5;
+		}
+	}
+
 }
