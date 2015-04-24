@@ -11,6 +11,7 @@ public class spin : MonoBehaviour {
 	float spinDecrementFinger, spinDecrementLetter;
 	enum Fingers {Middle, Ring, Pinky, Thumb, Index};
 	public GameObject otherPlayerButton;
+	public player player;
 
 	// Use this for initialization
 	void Start () {
@@ -37,8 +38,20 @@ public class spin : MonoBehaviour {
 			//Debug.Log(finger);
 			char alpha = getLetterSpin(360-LetterSpinner.rotation.eulerAngles.z);
 
-			this.gameObject.active = false;
-			otherPlayerButton.active = true;
+			if (finger == (int) Fingers.Middle) {
+				player.middle = alpha;
+			} else if (finger == (int) Fingers.Ring) {
+				player.ring = alpha;
+			} else if (finger == (int) Fingers.Pinky) {
+				player.pinky = alpha;
+			} else if (finger == (int) Fingers.Thumb) {
+				player.thumb = alpha;
+			} else {
+				player.index = alpha;
+			}
+
+			this.gameObject.SetActive(false);
+			otherPlayerButton.SetActive(true);
 			spun = false;
 
 		}
@@ -66,8 +79,8 @@ public class spin : MonoBehaviour {
 		// B = 66 = 1
 		// C = 67 = 2
 		float r = angle / (13.8f);
-		Debug.Log ((char)(int)(65 + r));
-		Debug.Log (r);
+		/*Debug.Log ((char)(int)(65 + r));
+		Debug.Log (r);*/
 
 		return (char) (int) (65 + r);
 	}
