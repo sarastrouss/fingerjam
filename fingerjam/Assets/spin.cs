@@ -50,7 +50,7 @@ public class spin : MonoBehaviour {
 		// A = 65 = 0
 		// B = 66 = 1
 		// C = 67 = 2
-		float r = angle / (360/26);
+		float r = angle / (13.8f);
 		Debug.Log ((char)(int)(65 + r));
 		Debug.Log (r);
 
