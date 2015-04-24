@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
 
 public class spin : MonoBehaviour {
 
@@ -14,13 +17,16 @@ public class spin : MonoBehaviour {
 	public player player;
 	public UnityEngine.UI.Text timer;
 	public int timeLeft;
-
+	List<char> alph;
+	HashSet<char> keys = new HashSet<char>();
+	
 	// Use this for initialization
 	void Start () {
 		spinning = false;
 		spun = false;
 		timeLeft = 5;
 		countdown = true;
+		alph = new List<char>();
 	}
 	
 	// Update is called once per frame
@@ -41,7 +47,8 @@ public class spin : MonoBehaviour {
 			int finger = getFingerSpin(FingerSpinner.rotation.eulerAngles.z); 
 			//Debug.Log(finger);
 			char alpha = getLetterSpin(360-LetterSpinner.rotation.eulerAngles.z);
-
+			// add to "current" array
+			alph.Add (alpha);
 			if (finger == (int) Fingers.Middle) {
 				player.middle = alpha;
 			} else if (finger == (int) Fingers.Ring) {
@@ -57,10 +64,37 @@ public class spin : MonoBehaviour {
 				countdown = false;
 				StartCoroutine(showTimer(1));
 			}
+			//want to check time
+			if (timeLeft < 0 ) {
+				Debug.Log ("Lose");
+
+			}
+			//Only adds a key if it equals the one that is spun
+			for(int i=0; i < Input.inputString.Length; i++) {
+				if((char) Input.inputString.ToCharArray(i, 1)[0] == alpha) {
+					keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+				}
+				   
+			}
+
+
+
+			//Debug.Log(Input.inputString);
 
 		}
+
+		// remove key if finger isn't pressing key
+		for (int i = 97; i <= 122; i++) {
+			if(Input.GetKeyUp((char) i + "" )) {
+				keys.RemoveWhere(x => x == (char) i);
+				Debug.Log ("LOSER UR A LOSER");
+			}
+		}
+
 	}
 
+	//Every second: add input string to a set
+	//I
 
 	int getFingerSpin(float angle) {
 		if (angle < 0 && angle < 34) {

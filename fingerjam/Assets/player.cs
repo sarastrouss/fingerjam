@@ -16,5 +16,8 @@ public class player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//offset 32
+		//check if input matches 65 (A) or 97 (a) 
+	
 	}
 }
