@@ -2,15 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/spin.cs">
     <Files>
-<<<<<<< Updated upstream
-      <File FileName="Assets/twisterPlay.cs" Line="66" Column="1" />
-      <File FileName="Assets/spin.cs" Line="42" Column="17" />
-      <File FileName="../../elefun/elefun-game/Assets/dragObject.cs" Line="1" Column="1" />
-      <File FileName="Assets/toGame.cs" Line="1" Column="1" />
-      <File FileName="Assets/toInstructions.cs" Line="16" Column="22" />
-=======
-      <File FileName="Assets/spin.cs" Line="53" Column="22" />
->>>>>>> Stashed changes
+      <File FileName="Assets/spin.cs" Line="111" Column="20" />
+      <File FileName="Assets/player.cs" Line="19" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

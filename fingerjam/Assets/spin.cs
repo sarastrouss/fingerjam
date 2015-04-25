@@ -18,7 +18,10 @@ public class spin : MonoBehaviour {
 	public UnityEngine.UI.Text timer;
 	public int timeLeft;
 	List<char> alph;
-	HashSet<char> keys = new HashSet<char>();
+	HashSet<char> p1keys = new HashSet<char> ();
+	HashSet<char> p2keys = new HashSet<char>();
+	bool p1;
+	bool p2;
 	
 	// Use this for initialization
 	void Start () {
@@ -27,6 +30,8 @@ public class spin : MonoBehaviour {
 		timeLeft = 5;
 		countdown = true;
 		alph = new List<char>();
+		p1 = true;
+		p2 = false;
 	}
 	
 	// Update is called once per frame
@@ -69,29 +74,57 @@ public class spin : MonoBehaviour {
 				Debug.Log ("Lose");
 
 			}
-			//Only adds a key if it equals the one that is spun
-			for(int i=0; i < Input.inputString.Length; i++) {
-				if((char) Input.inputString.ToCharArray(i, 1)[0] == alpha) {
-					keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+			if(gameObject.tag == "player1" && gameObject.activeSelf) {
+				for(int i=0; i < Input.inputString.Length; i++) {
+					Debug.Log (alpha);
+					Debug.Log (Input.inputString);
+					if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
+						Debug.Log ("added p1");
+						p1keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+					}
+					
 				}
-				   
+
+
 			}
+			//Only adds a key if it equals the one that is spun
 
+			if(gameObject.tag == "player2" && gameObject.activeSelf) {
+				for(int i=0; i < Input.inputString.Length; i++) {
+					Debug.Log (alpha);
+					Debug.Log (Input.inputString);
+					if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
+						Debug.Log ("added p2");
+						p2keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+					}
+					
+				}
+				p1 = true;
+			}
+		}
 
-
-			//Debug.Log(Input.inputString);
-
+		if (gameObject.tag == "player1" && gameObject.activeSelf) {
+			// remove key if finger isn't pressing key
+			for (int i = 97; i <= 122; i++) {
+				if (Input.GetKeyUp ((char)i + "")) {
+					p1keys.RemoveWhere (x => x == (char)i);
+					Debug.Log ("LOSER 1 UR A LOSER");
+				}
+			}
 		}
 
 		// remove key if finger isn't pressing key
 		for (int i = 97; i <= 122; i++) {
-			if(Input.GetKeyUp((char) i + "" )) {
-				keys.RemoveWhere(x => x == (char) i);
-				Debug.Log ("LOSER UR A LOSER");
+			if (Input.GetKeyUp ((char)i + ""))  {
+				p2keys.RemoveWhere (x => x == (char)i);
+				Debug.Log ("LOSER 2 UR A LOSER");
 			}
 		}
 
 	}
+	
+
+
 
 	//Every second: add input string to a set
 	//I
@@ -120,7 +153,7 @@ public class spin : MonoBehaviour {
 		/*Debug.Log ((char)(int)(65 + r));
 		Debug.Log (r);*/
 
-		return (char) (int) (65 + r);
+		return (char) (int) (97 + r);
 	}
 
 
