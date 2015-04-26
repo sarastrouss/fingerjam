@@ -47,7 +47,8 @@ public class spin : MonoBehaviour {
 			}
 		} else if (!spun) {
 			spinning = false;
-		} else {		
+		} else {	
+			Debug.Log("Here");
 			// detecting things
 			int finger = getFingerSpin(FingerSpinner.rotation.eulerAngles.z); 
 			//Debug.Log(finger);
@@ -74,61 +75,93 @@ public class spin : MonoBehaviour {
 				Debug.Log ("Lose");
 
 			}
+			if(!Input.inputString.Equals(alpha)) {
+				Debug.Log ("You're pressing the wrong key!");
+			}
+
+
+			/**
+			 * If the gameObject tag is equal to player 1 and that tag is currently active and the other
+			 * hashset does not already contain this key, add the key
+			 * 
+			 */ 
+			//only adds a key if that player is currently spinning
 			if(gameObject.tag == "player1" && gameObject.activeSelf) {
-				for(int i=0; i < Input.inputString.Length; i++) {
-					Debug.Log (alpha);
-					Debug.Log (Input.inputString);
-					if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
-						Debug.Log ("added p1");
-						p1keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+				if(p2keys.Contains(alpha)) {
+					//add spin again here
+					Debug.Log ("Spin again!");
+				}  else if (p1keys.Contains(alpha)) {
+					//add spin again here
+					Debug.Log ("spin again!");
+				} else {
+					for(int i=0; i < Input.inputString.Length; i++) {
+						Debug.Log (alpha);
+						Debug.Log (Input.inputString);
+						if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
+							Debug.Log ("added p1" + (char) Input.inputString.ToCharArray(i, 1)[0]);
+			
+							p1keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+						}
+						
 					}
-					
 				}
 
 
 			}
+			/**
+			 * If the gameObject tag is equal to player 2 and that tag is currently active and the other
+			 * hashset does not already contain this key, add the key
+			 * 
+			 */ 
 			//Only adds a key if it equals the one that is spun
-
-			if(gameObject.tag == "player2" && gameObject.activeSelf) {
-				for(int i=0; i < Input.inputString.Length; i++) {
-					Debug.Log (alpha);
-					Debug.Log (Input.inputString);
-					if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
-						Debug.Log ("added p2");
-						p2keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+			if(gameObject.tag == "player2" && gameObject.activeSelf && !p1keys.Contains(alpha)) {
+				//if the other hashset already contains alpha, spin again
+				if(p1keys.Contains(alpha)) {
+					//add spin again here
+					Debug.Log ("Spin again!");
+				}  else if (p2keys.Contains(alpha)) {
+					//add spin again here
+					Debug.Log ("spin again!");
+				} else {
+					for(int i=0; i < Input.inputString.Length; i++) {
+						Debug.Log (alpha);
+						Debug.Log (Input.inputString);
+						if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
+							Debug.Log ("added p2" + (char) Input.inputString.ToCharArray(i, 1)[0]);
+							p2keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
+						}
+						
 					}
-					
-				}
-				p1 = true;
-			}
-		}
-
-		if (gameObject.tag == "player1" && gameObject.activeSelf) {
-			// remove key if finger isn't pressing key
-			for (int i = 97; i <= 122; i++) {
-				if (Input.GetKeyUp ((char)i + "")) {
-					p1keys.RemoveWhere (x => x == (char)i);
-					Debug.Log ("LOSER 1 UR A LOSER");
 				}
 			}
 		}
 
-		// remove key if finger isn't pressing key
+		/**
+		 * This block works by removing the letter from a particular player's hashset 
+		 * Currently works in each spin state, but fails in between spins.
+		 */
+		// remove key if finger isn't pressing key, only works in spin state for some reason
 		for (int i = 97; i <= 122; i++) {
-			if (Input.GetKeyUp ((char)i + ""))  {
-				p2keys.RemoveWhere (x => x == (char)i);
-				Debug.Log ("LOSER 2 UR A LOSER");
+			if (Input.GetKeyUp ((char)i + "")) {
+				//works here in between spins
+				Debug.Log("Lifted " + (char) i);
+				//doesn't enter this block in between spins
+				if(p1keys.RemoveWhere (x => x == (char)i) == 1) {
+					//switch to player 1 lose screen here
+					Debug.Log ("LOSER 1 UR A LOSER. Removed " + (char) i );
+				} 
+				if(p2keys.RemoveWhere (x => x == (char)i) == 1) {
+					// switch to player 2 lose screen here
+					Debug.Log ("LOSER 2 UR A LOSER. Removed " + (char) i );
+
+				}
 			}
 		}
+	
 
 	}
 	
-
-
-
-	//Every second: add input string to a set
-	//I
-
+	// finds what finger the arrow is pointing to
 	int getFingerSpin(float angle) {
 		if (angle < 0 && angle < 34) {
 			return (int) Fingers.Middle;
@@ -145,14 +178,12 @@ public class spin : MonoBehaviour {
 		}
 	}
 
+	// finds what letter the arrow is pointing to -- only catches lower case letters as that is what is returned by input
 	char getLetterSpin(float angle) {
 		// A = 65 = 0
 		// B = 66 = 1
 		// C = 67 = 2
 		float r = angle / (13.8f);
-		/*Debug.Log ((char)(int)(65 + r));
-		Debug.Log (r);*/
-
 		return (char) (int) (97 + r);
 	}
 
@@ -165,7 +196,6 @@ public class spin : MonoBehaviour {
 			spinDecrementLetter = Random.Range (8, 15);
 
 		}
-
 	}
 
 	IEnumerator showTimer(float time) {
