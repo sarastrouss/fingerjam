@@ -51,35 +51,16 @@ public class spin : MonoBehaviour {
 		} else if (!spun) {
 			spinning = false;
 		} else {	
-			/*Debug.Log("Here");*/
 			// detecting things
 			int finger = getFingerSpin(FingerSpinner.rotation.eulerAngles.z); 
 			//Debug.Log(finger);
 			char alpha = getLetterSpin(360-LetterSpinner.rotation.eulerAngles.z);
+			Debug.Log (alpha);
+
 			// add to "current" array
 			alph.Add (alpha);
-			if (finger == (int) Fingers.Middle) {
-				player.keys[(int) player.Fingers.middle] = alpha;
-			} else if (finger == (int) Fingers.Ring) {
-				player.keys[(int) player.Fingers.ring] = alpha;
-			} else if (finger == (int) Fingers.Pinky) {
-				player.keys[(int) player.Fingers.pinky] = alpha;
-			} else if (finger == (int) Fingers.Thumb) {
-				player.keys[(int) player.Fingers.thumb] = alpha;
-			} else {
-				player.keys[(int) player.Fingers.index] = alpha;
-			}
-			/*if(!Input.inputString.Equals(alpha)) {
-				Debug.Log ("You're pressing the wrong key!");
-			}*/
 
 
-			/**
-			 * If the gameObject tag is equal to player 1 and that tag is currently active and the other
-			 * hashset does not already contain this key, add the key
-			 * 
-			 */ 
-			//only adds a key if that player is currently spinning
 			if(gameObject.tag == "player1" && gameObject.activeSelf) {
 				if(otherPlayer.keys.Contains(alpha)) {
 					errorText.text ="Your friend is on that letter, try again!";
@@ -88,18 +69,18 @@ public class spin : MonoBehaviour {
 					spun = false;
 				} else {
 					for(int i=0; i < Input.inputString.Length; i++) {
-						Debug.Log (alpha);
-						Debug.Log (Input.inputString);
+						/*Debug.Log (alpha);
+						Debug.Log (Input.inputString);*/
 						if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
-							Debug.Log ("added p1" + (char) Input.inputString.ToCharArray(i, 1)[0]);
-			
+							//Debug.Log ("added p1" + (char) Input.inputString.ToCharArray(i, 1)[0]);
+							
 							p1keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
 						}
 						
 					}
 				}
-
-
+				
+				
 			}
 			/**
 			 * If the gameObject tag is equal to player 2 and that tag is currently active and the other
@@ -116,8 +97,8 @@ public class spin : MonoBehaviour {
 					spun = false;
 				} else {
 					for(int i=0; i < Input.inputString.Length; i++) {
-						Debug.Log (alpha);
-						Debug.Log (Input.inputString);
+						/*Debug.Log (alpha);
+						Debug.Log (Input.inputString);*/
 						if((char) Input.inputString.ToCharArray(i, 1)[i] == alpha) {
 							Debug.Log ("added p2" + (char) Input.inputString.ToCharArray(i, 1)[0]);
 							p2keys.Add((char) Input.inputString.ToCharArray(i, 1)[0]);
@@ -127,6 +108,30 @@ public class spin : MonoBehaviour {
 				}
 			}
 
+			if (gameObject.activeSelf) {
+				if (finger == (int) Fingers.Middle) {
+					player.keys[(int) player.Fingers.middle] = alpha;
+				} else if (finger == (int) Fingers.Ring) {
+					player.keys[(int) player.Fingers.ring] = alpha;
+				} else if (finger == (int) Fingers.Pinky) {
+					player.keys[(int) player.Fingers.pinky] = alpha;
+				} else if (finger == (int) Fingers.Thumb) {
+					player.keys[(int) player.Fingers.thumb] = alpha;
+				} else {
+					player.keys[(int) player.Fingers.index] = alpha;
+				}
+			}
+			/*if(!Input.inputString.Equals(alpha)) {
+				Debug.Log ("You're pressing the wrong key!");
+			}*/
+
+
+			/**
+			 * If the gameObject tag is equal to player 1 and that tag is currently active and the other
+			 * hashset does not already contain this key, add the key
+			 * 
+			 */ 
+			//only adds a key if that player is currently spinning
 			
 			if (timeLeft > 0 && countdown && gameObject.activeSelf) {
 				countdown = false;
@@ -150,8 +155,7 @@ public class spin : MonoBehaviour {
 					if (gameObject.tag == "player2") {
 						Application.LoadLevel ("p1win");
 					}
-				}
-				if (otherPlayer.keys.Contains ((char) i)) {
+				} else if (otherPlayer.keys.Contains ((char) i)) {
 					if (gameObject.tag == "player1") {
 						Application.LoadLevel ("p1win");
 					}
