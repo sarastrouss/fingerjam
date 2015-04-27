@@ -275,19 +275,19 @@ public class spin : MonoBehaviour {
 		string character;
 
 		if (finger == (int) Fingers.Index) {
-			digit = "pointer";
+			digit = "Pointer";
 		}
 		if (finger == (int) Fingers.Middle) {
-			digit = "middle";
+			digit = "Middle";
 		}
 		if (finger == (int) Fingers.Pinky) {
-			digit = "pinky";
+			digit = "Pinky";
 		}
 		if (finger == (int) Fingers.Ring) {
-			digit = "ring";
+			digit = "Ring";
 		}
 		if (finger == (int) Fingers.Thumb) {
-			digit = "thumb";	
+			digit = "Thumb";	
 		}
 
 		character = letter.ToString();
