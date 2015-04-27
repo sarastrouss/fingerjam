@@ -19,6 +19,7 @@ public class spin : MonoBehaviour {
 	public player otherPlayer;
 	public UnityEngine.UI.Text timer;
 	public UnityEngine.UI.Text errorText;
+	public UnityEngine.UI.Text description;
 	public int timeLeft;
 	List<char> alph;
 	HashSet<char> p1keys = new HashSet<char> ();
@@ -135,7 +136,9 @@ public class spin : MonoBehaviour {
 			
 			if (timeLeft > 0 && countdown && gameObject.activeSelf) {
 				countdown = false;
+				setText(finger, alpha);
 				StartCoroutine(showTimer(1));
+
 			}
 		}
 
@@ -227,6 +230,7 @@ public class spin : MonoBehaviour {
 			this.gameObject.SetActive (false);
 			otherPlayerButton.SetActive (true);
 			timer.text = "";
+			description.text = "";
 			spun = false;
 			timeLeft = 5;
 		}
@@ -264,6 +268,32 @@ public class spin : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void setText(int finger, char letter) {
+		string digit = "";
+		string character;
+
+		if (finger == (int) Fingers.Index) {
+			digit = "pointer";
+		}
+		if (finger == (int) Fingers.Middle) {
+			digit = "middle";
+		}
+		if (finger == (int) Fingers.Pinky) {
+			digit = "pinky";
+		}
+		if (finger == (int) Fingers.Ring) {
+			digit = "ring";
+		}
+		if (finger == (int) Fingers.Thumb) {
+			digit = "thumb";	
+		}
+
+		character = letter.ToString();
+
+		description.text = digit + " on " + character.ToUpper();
+
 	}
 
 }
