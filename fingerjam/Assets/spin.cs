@@ -51,7 +51,7 @@ public class spin : MonoBehaviour {
 		} else if (!spun) {
 			spinning = false;
 		} else {	
-			Debug.Log("Here");
+			/*Debug.Log("Here");*/
 			// detecting things
 			int finger = getFingerSpin(FingerSpinner.rotation.eulerAngles.z); 
 			//Debug.Log(finger);
@@ -69,9 +69,9 @@ public class spin : MonoBehaviour {
 			} else {
 				player.keys[(int) player.Fingers.index] = alpha;
 			}
-			if(!Input.inputString.Equals(alpha)) {
+			/*if(!Input.inputString.Equals(alpha)) {
 				Debug.Log ("You're pressing the wrong key!");
-			}
+			}*/
 
 
 			/**
@@ -143,8 +143,24 @@ public class spin : MonoBehaviour {
 			if (Input.GetKeyUp ((char)i + "")) {
 				//works here in between spins
 				Debug.Log("Lifted " + (char) i);
+				if (player.keys.Contains((char) i)) {
+					if (gameObject.tag == "player1") {
+						Application.LoadLevel ("p2win");
+					}
+					if (gameObject.tag == "player2") {
+						Application.LoadLevel ("p1win");
+					}
+				}
+				if (otherPlayer.keys.Contains ((char) i)) {
+					if (gameObject.tag == "player1") {
+						Application.LoadLevel ("p1win");
+					}
+					if (gameObject.tag == "player2") {
+						Application.LoadLevel ("p2win");
+					}
+				}
 				//doesn't enter this block in between spins
-				if(p1keys.RemoveWhere (x => x == (char)i) == 1) {
+				/*if(p1keys.RemoveWhere (x => x == (char)i) == 1) {
 					//switch to player 1 lose screen here
 					Debug.Log ("LOSER 1 UR A LOSER. Removed " + (char) i );
 				} 
@@ -152,7 +168,7 @@ public class spin : MonoBehaviour {
 					// switch to player 2 lose screen here
 					Debug.Log ("LOSER 2 UR A LOSER. Removed " + (char) i );
 
-				}
+				}*/
 			}
 		}
 	
@@ -203,11 +219,46 @@ public class spin : MonoBehaviour {
 		timeLeft--;
 		countdown = true;
 		if (timeLeft == 0) {
+			checkForLoserCurrentPlayer();
 			this.gameObject.SetActive (false);
 			otherPlayerButton.SetActive (true);
 			timer.text = "";
 			spun = false;
 			timeLeft = 5;
+		}
+	}
+
+	void checkForLoserCurrentPlayer() {
+		if (gameObject.tag == "player1") {
+			for (int i = 0; i < 5; i++) {
+				if (player.keys[i] != '\0' && !p1keys.Contains(player.keys[i])) {
+					Application.LoadLevel ("p2win");
+				}
+			}
+		}
+		if (gameObject.tag == "player2") {
+			for (int i = 0; i < 5; i++) {
+				if (player.keys[i] != '\0' && !p2keys.Contains(player.keys[i])) {
+					Application.LoadLevel ("p1win");
+				}
+			}
+		}
+	}
+
+	void checkForLoserOtherPlayer() {
+		if (gameObject.tag == "player1") {
+			for (int i = 0; i < 5; i++) {
+				if (otherPlayer.keys[i] != '\0' && !p2keys.Contains(otherPlayer.keys[i])) {
+					Application.LoadLevel ("p1win");
+				}
+			}
+		}
+		if (gameObject.tag == "player2") {
+			for (int i = 0; i < 5; i++) {
+				if (otherPlayer.keys[i] != '\0' && !p1keys.Contains(otherPlayer.keys[i])) {
+					Application.LoadLevel ("p2win");
+				}
+			}
 		}
 	}
 
