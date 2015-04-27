@@ -184,7 +184,7 @@ public class spin : MonoBehaviour {
 	
 	// finds what finger the arrow is pointing to
 	int getFingerSpin(float angle) {
-		if (angle < 0 && angle < 34) {
+		if (angle < 0 && angle < 36) {
 			return (int) Fingers.Middle;
 		} else if (angle > 324 && angle < 360) {
 			return (int) Fingers.Middle;
