@@ -2,9 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/spin.cs">
     <Files>
+<<<<<<< Updated upstream
       <File FileName="Assets/player.cs" Line="19" Column="3" />
       <File FileName="Assets/spin.cs" Line="274" Column="20" />
       <File FileName="Assets/toMenu.cs" Line="4" Column="20" />
+=======
+      <File FileName="Assets/spin.cs" Line="173" Column="4" />
+      <File FileName="Assets/player.cs" Line="11" Column="28" />
+>>>>>>> Stashed changes
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
