@@ -14,8 +14,11 @@ public class spin : MonoBehaviour {
 	float spinDecrementFinger, spinDecrementLetter;
 	enum Fingers {Middle, Ring, Pinky, Thumb, Index};
 	public GameObject otherPlayerButton;
+	public GameObject respinButton;
 	public player player;
+	public player otherPlayer;
 	public UnityEngine.UI.Text timer;
+	public UnityEngine.UI.Text errorText;
 	public int timeLeft;
 	List<char> alph;
 	HashSet<char> p1keys = new HashSet<char> ();
@@ -56,24 +59,15 @@ public class spin : MonoBehaviour {
 			// add to "current" array
 			alph.Add (alpha);
 			if (finger == (int) Fingers.Middle) {
-				player.middle = alpha;
+				player.keys[(int) player.Fingers.middle] = alpha;
 			} else if (finger == (int) Fingers.Ring) {
-				player.ring = alpha;
+				player.keys[(int) player.Fingers.ring] = alpha;
 			} else if (finger == (int) Fingers.Pinky) {
-				player.pinky = alpha;
+				player.keys[(int) player.Fingers.pinky] = alpha;
 			} else if (finger == (int) Fingers.Thumb) {
-				player.thumb = alpha;
+				player.keys[(int) player.Fingers.thumb] = alpha;
 			} else {
-				player.index = alpha;
-			}
-			if (timeLeft > 0 && countdown) {
-				countdown = false;
-				StartCoroutine(showTimer(1));
-			}
-			//want to check time
-			if (timeLeft < 0 ) {
-				Debug.Log ("Lose");
-
+				player.keys[(int) player.Fingers.index] = alpha;
 			}
 			if(!Input.inputString.Equals(alpha)) {
 				Debug.Log ("You're pressing the wrong key!");
@@ -87,12 +81,11 @@ public class spin : MonoBehaviour {
 			 */ 
 			//only adds a key if that player is currently spinning
 			if(gameObject.tag == "player1" && gameObject.activeSelf) {
-				if(p2keys.Contains(alpha)) {
-					//add spin again here
-					Debug.Log ("Spin again!");
-				}  else if (p1keys.Contains(alpha)) {
-					//add spin again here
-					Debug.Log ("spin again!");
+				if(otherPlayer.keys.Contains(alpha)) {
+					errorText.text ="Your friend is on that letter, try again!";
+					this.gameObject.SetActive (false);
+					respinButton.SetActive (true);
+					spun = false;
 				} else {
 					for(int i=0; i < Input.inputString.Length; i++) {
 						Debug.Log (alpha);
@@ -116,12 +109,11 @@ public class spin : MonoBehaviour {
 			//Only adds a key if it equals the one that is spun
 			if(gameObject.tag == "player2" && gameObject.activeSelf && !p1keys.Contains(alpha)) {
 				//if the other hashset already contains alpha, spin again
-				if(p1keys.Contains(alpha)) {
-					//add spin again here
-					Debug.Log ("Spin again!");
-				}  else if (p2keys.Contains(alpha)) {
-					//add spin again here
-					Debug.Log ("spin again!");
+				if(otherPlayer.keys.Contains(alpha)) {
+					errorText.text ="Your friend is on that letter, try again!";
+					this.gameObject.SetActive (false);
+					respinButton.SetActive (true);
+					spun = false;
 				} else {
 					for(int i=0; i < Input.inputString.Length; i++) {
 						Debug.Log (alpha);
@@ -133,6 +125,12 @@ public class spin : MonoBehaviour {
 						
 					}
 				}
+			}
+
+			
+			if (timeLeft > 0 && countdown && gameObject.activeSelf) {
+				countdown = false;
+				StartCoroutine(showTimer(1));
 			}
 		}
 
@@ -194,6 +192,7 @@ public class spin : MonoBehaviour {
 			spun = true;
 			spinDecrementFinger = Random.Range (8, 15);
 			spinDecrementLetter = Random.Range (8, 15);
+			errorText.text = "";
 
 		}
 	}

@@ -3,21 +3,19 @@ using System.Collections;
 
 public class player : MonoBehaviour {
 
-	public char thumb, index, middle, ring, pinky;
+	public enum Fingers {thumb, index, middle, ring, pinky};
+	public char[] keys;
 
 	// Use this for initialization
 	void Start () {
-		thumb = '\0';
-		index = '\0';
-		middle = '\0';
-		ring = '\0';
-		pinky = '\0';
+		keys = new char[]{'\0', '\0', '\0', '\0', '\0'};
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//offset 32
 		//check if input matches 65 (A) or 97 (a) 
-	
+
 	}
+
 }
