@@ -1,15 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/spin.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/toGame.cs">
     <Files>
-<<<<<<< Updated upstream
-      <File FileName="Assets/player.cs" Line="19" Column="3" />
-      <File FileName="Assets/spin.cs" Line="274" Column="20" />
-      <File FileName="Assets/toMenu.cs" Line="4" Column="20" />
-=======
-      <File FileName="Assets/spin.cs" Line="173" Column="4" />
-      <File FileName="Assets/player.cs" Line="11" Column="28" />
->>>>>>> Stashed changes
+      <File FileName="Assets/spin.cs" Line="216" Column="1" />
+      <File FileName="../../../Project1/Assets/jump.cs" Line="49" Column="32" />
+      <File FileName="Assets/toGame.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

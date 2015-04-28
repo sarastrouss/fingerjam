@@ -122,9 +122,6 @@ public class spin : MonoBehaviour {
 					player.keys[(int) player.Fingers.index] = alpha;
 				}
 			}
-			/*if(!Input.inputString.Equals(alpha)) {
-				Debug.Log ("You're pressing the wrong key!");
-			}*/
 
 
 			/**
@@ -216,6 +213,7 @@ public class spin : MonoBehaviour {
 			spinDecrementFinger = Random.Range (8, 15);
 			spinDecrementLetter = Random.Range (8, 15);
 			errorText.text = "";
+			GetComponent<AudioSource>().Play();
 
 		}
 	}
