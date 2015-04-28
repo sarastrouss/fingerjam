@@ -220,8 +220,8 @@ public class spin : MonoBehaviour {
 
 	IEnumerator playerLose(float time) {
 		yield return new WaitForSeconds (time);
-		checkForLoserCurrentPlayer ();
 		checkForLoserOtherPlayer ();
+		checkForLoserCurrentPlayer ();
 	}
 
 	void checkForLoserCurrentPlayer() {
@@ -253,7 +253,7 @@ public class spin : MonoBehaviour {
 			for (int i = 0; i < 5; i++) {
 				if (otherPlayer.keys[i] != '\0' && !p2keys.Contains(otherPlayer.keys[i])) {
 					Debug.Log ("Loser");
-					Application.LoadLevel ("p2win");
+					Application.LoadLevel ("p1win");
 				}
 			}
 		}
@@ -261,7 +261,7 @@ public class spin : MonoBehaviour {
 			Debug.Log ("player2");
 			for (int i = 0; i < 5; i++) {
 				if (otherPlayer.keys[i] != '\0' && !p1keys.Contains(otherPlayer.keys[i])) {
-					Application.LoadLevel ("p1win");
+					Application.LoadLevel ("p2win");
 				}
 				
 			}
